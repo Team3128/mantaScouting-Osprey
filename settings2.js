@@ -46,6 +46,7 @@ autoSettingsCopy.set("score", {
             "y": 6.1,
             "next": "pickup",
             "position": "absolute",
+            "color": "green",
             "coord": [{x: 0, y: 5.55}],
             "trigger": "a"
         },
@@ -55,6 +56,7 @@ autoSettingsCopy.set("score", {
             "y": 5,
             "next": "pickup",
             "position": "absolute",
+            "color": "yellow",
             "coord": [{x: 0, y: 5.55}],
             "trigger": "d"
         },
@@ -63,21 +65,24 @@ autoSettingsCopy.set("score", {
             "x": 3.4,
             "y": 8.15,
             "next": "pickup",
-            "position": "absolute"
+            "position": "absolute",
+            "color": "green"
         },
         {
             "label": "Amp Miss",
             "x": 0.5,
             "y": 8.15,
             "next": "pickup",
-            "position": "absolute"
+            "position": "absolute",
+            "color": "yellow"
         },
         {
             "label": "Hoard",
-            "x": -0.1,
+            "x": -1,
             "y": 0,
             "next": "pickup",
             "position": "movingRelative",
+            "color": "orange",
             "function": ()=> {
                 autoSettingsCopy.get("pickup").points.push({
                     "display": "H-Note",
@@ -109,6 +114,7 @@ autoSettingsCopy.set("scoreHoard", {
             "y": 6.1,
             "next": "pickup",
             "position": "absolute",
+            "color": "green",
             "coord": [{x: 0, y: 5.55}],
             "trigger": "a"
         },
@@ -118,6 +124,7 @@ autoSettingsCopy.set("scoreHoard", {
             "y": 5,
             "next": "pickup",
             "position": "absolute",
+            "color": "yellow",
             "coord": [{x: 0, y: 5.55}],
             "trigger": "d"
         },
@@ -126,14 +133,16 @@ autoSettingsCopy.set("scoreHoard", {
             "x": 3.4,
             "y": 8.15,
             "next": "pickup",
-            "position": "absolute"
+            "position": "absolute",
+            "color": "green"
         },
         {
             "label": "Amp Miss",
             "x": 0.5,
             "y": 8.15,
             "next": "pickup",
-            "position": "absolute"
+            "position": "absolute",
+            "color": "yellow"
         }
     ]
 });

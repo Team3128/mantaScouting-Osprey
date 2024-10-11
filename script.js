@@ -350,10 +350,11 @@ function drawPath(canvas, pixelsPerMeter) {
         for (let j = 0; j < point.length; j++) {
             if (isMoving) {
                 ctx.strokeStyle = allianceColor == "r" ? "red" : "blue";
-                ctx.lineWidth = 3;
+                ctx.lineWidth = 2;
             }
             else {
-                ctx.strokeStyle = (autoPath[i].label.toLowerCase().indexOf("miss") == -1) ? "green" : "yellow";
+                console.log(autoPath[i]);
+                ctx.strokeStyle = autoPath[i].color;
                 ctx.lineWidth = 1;
             }
             drawLine(ctx, prevPoint, point[j], pixelsPerMeter);
@@ -389,7 +390,6 @@ function backupPoint() {
     if (autoHistory.length == 0) return;
     const point = autoPath.pop();
     if (point.inverseFunction != null) {
-        console.log("FUCK");
         point.inverseFunction();
     }
     createAuto(autoHistory.pop());
