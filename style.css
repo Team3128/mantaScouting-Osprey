@@ -362,6 +362,7 @@ svg:hover {
     width: 30vw;
     margin: auto;
     margin-top: 0vh;
+    margin-bottom: 0vh;
     border-radius: 0.5rem;
 
     font-family: "Roboto Mono", monospace;
@@ -570,6 +571,15 @@ svg:hover {
     font-family: "Roboto Mono", monospace;
     margin: auto;
     /* margin-right: 1%; */
+}
+
+#back {
+    width: 80%;
+    text-align: center;
+    font-size: 1.5em;
+    font-family: "Roboto Mono", monospace;
+    margin: auto;
+    /* margin-left: 1%; */
 }
 
 #continue {

@@ -95,15 +95,8 @@ document.getElementById("initColor").addEventListener("click", () => {
 allianceColor = "b";
 switchColor();
 
-document.getElementById("continue").addEventListener("click", () => {
-    if (state == "auto" && timer < 150) {
-        transition(2);
-    }
-    else if (state == "tele") {
-        transition(4);
-    }
-    console.log("Continue Button Clicked");
-});
+document.getElementById("continue").addEventListener("click", nextStage);
+document.getElementById("back").addEventListener("click", previousStage);
 
 //always starts on red when app first launches
 function switchColor() {
@@ -836,20 +829,35 @@ function updateTimer() {
     // }
 }
 
+let isSorted = false;
 function updateQr() {
     combAllianceColor = allianceColor + dataPoints.get("Team Position");
     dataPoints.set("Alliance Color", allianceColor);
-    for (const key of dataPoints.keys()) {
-        const value = dataPoints.get(key);
-        // if(i == 8){ //scrappy code, should change later   
-        // }
-        // if (typeof value == "boolean") { //convert boolean to 0 or 1
-        //     if (value) {
-        //         dataPoints.set(key, 1);
-        //         continue;
-        //     }
-        //     dataPoints.set(key, 0);
-        // }
+
+    if (!isSorted) sortData();
+
+    //reference for qr gen: https://github.com/kazuhikoarase/qrcode-generator/blob/master/js/README.md
+
+    var typeNumber = 0;
+    var errorCorrectionLevel = 'L';
+    var qr = qrcode(typeNumber, errorCorrectionLevel);
+    let stuff = JSON.stringify(dataPoints, (key, value) => (value instanceof Map ? [...value] : value));
+    qr.addData(stuff);
+    qr.make();
+    document.getElementById('qrContainer').innerHTML = qr.createImgTag();
+    document.getElementById("qrText").innerHTML = stuff;
+}
+
+function sortData() {
+    const sortedData = new Map();
+    const metaData = ["Scout ID", "Team Number", "Match Number", "Team Position", "Scout Team"]
+    for (const key of metaData) {
+        sortedData.set(key, dataPoints.get(key));
+    }
+
+    for (const [key, value] of dataPoints) {
+        if (key in metaData) continue;
+        console.log ("Key: " + key);
         if (typeof value == "string") {
             console.log("Key: " + key);
 
@@ -862,19 +870,10 @@ function updateQr() {
                 dataPoints.set(key, textValue);
             }
         }
-
+        sortedData.set(key, value);
     }
-
-    //reference for qr gen: https://github.com/kazuhikoarase/qrcode-generator/blob/master/js/README.md
-
-    var typeNumber = 0;
-    var errorCorrectionLevel = 'L';
-    var qr = qrcode(typeNumber, errorCorrectionLevel);
-    let stuff = JSON.stringify(dataPoints, (key, value) => (value instanceof Map ? [...value] : value));
-    qr.addData(stuff);
-    qr.make();
-    document.getElementById('qrContainer').innerHTML = qr.createImgTag();
-    document.getElementById("qrText").innerHTML = stuff;
+    isSorted = true;
+    dataPoints = sortedData;
 }
 
 let incArr = []
@@ -1053,36 +1052,35 @@ function  transition(i) {
 
         if (!testing) {
             if (!(allianceColor == 'b' || allianceColor == 'r')) { //check alliance color
-                if (!confirm("Did you enter the alliance color by clicking eScouting?")) {
-                    return;
-                }
+                alert("Did you enter the alliance color by clicking eScouting?")
+                return;
             }
             if (scoutID == "") { //check scout name
-                if (!confirm("Did you enter your name in scout id?")) {
-                    return;
-                }
+                alert("Enter your Scout ID.")
+                return;
             }
             if (!(/^\d+$/.test(teamNum))) { //check if team number is a number
-                if (!confirm("Did you enter your team number correctly?")) {
-                    return;
-                }
+                alert("Enter your team number correctly.")
+                return;
             }
-            if (!(/^\d+$/.test(matchNum))) { //check if match number is a number
-                if (!confirm("Did you enter the match number correctly?")) {
-                    return;
-                }
+            if (!(/^\d+$/.test(matchNum)) || parseInt(matchNum) < 0 || parseInt(matchNum) > 500) { //check if match number is a number
+                alert("Enter the match number correctly.")
+                return;
+            }
+            if (scoutTeam == "") {
+                alert("Enter your scout team number.");
+                return;
             }
             if (!(teamPos == 1 || teamPos == 2 || teamPos == 3)) { //check if team position is 1, 2, or 3
-                if (!confirm("Did you enter your team position correctly?")) {
-                    return;
-                }
+                alert("Enter your team position correctly.")
+                return;
             }
         }
 
-        dataPoints.set("Scout ID", isNaN(scoutID) ? scoutID : parseInt(scoutID));
-        dataPoints.set("Team Number", isNaN(teamNum) ? teamNum : parseInt(teamNum));
-        dataPoints.set("Match Number", isNaN(matchNum) ? matchNum : parseInt(matchNum));
-        dataPoints.set("Team Position", isNaN(teamPos) ? teamPos : parseInt(teamPos));
+        dataPoints.set("Scout ID", scoutID);
+        dataPoints.set("Team Number", parseInt(teamNum));
+        dataPoints.set("Match Number", parseInt(matchNum));
+        dataPoints.set("Team Position", parseInt(teamPos));
         dataPoints.set("Scout Team", parseInt(scoutTeam));
         dataPoints.set("Alliance Color", allianceColor);
 
@@ -1108,6 +1106,7 @@ function  transition(i) {
         generateMainPage("auto");
     }
     if (i == 2) {
+        if (window.timerFunction == null) timerStart();
         convertAutoPathToData(dataPoints, autoPath);
         generateMainPage("tele");
     }
@@ -1123,13 +1122,15 @@ function  transition(i) {
 }
 
 function resetGame() {
+    isSorted = false;
+    document.getElementById("autoPage").style.display = "none";
     state = "init";
     timer = 150;
     delay = true;
     rowContent = new Map();
     incArr = [];
     selected = -1;
-    clearInterval(timerFunction);
+    if (window.timerFunction != null) clearInterval(window.timerFunction);
     notesToggled = false;
 
     //clearing main page and generating the displaybar
@@ -1169,14 +1170,19 @@ function resetGame() {
     let displayTeam = document.createElement("div");
     displayTeam.setAttribute("id", "display-team");
     // displayBar.appendChild(displayTeam);
+    let backBtn = document.createElement("button");
+    backBtn.setAttribute("id", "back");
+    backBtn.setAttribute("class", "autoButton");
+    backBtn.innerHTML = "Back";
     let continueBtn = document.createElement("button");
     continueBtn.setAttribute("id", "continue");
     continueBtn.setAttribute("class", "autoButton");
-    continueBtn.innerHTML = "Continue";
+    continueBtn.innerHTML = "Next";
     // console.log("Continue Button Created");
 
     box1.appendChild(displayMatch);
     box1.appendChild(displayTeam);
+    box2.appendChild(backBtn);
     box2.appendChild(continueBtn);
 
     displayBar.appendChild(box1);
@@ -1195,15 +1201,34 @@ function resetGame() {
     document.getElementById("mainPage").classList.remove("afterPageContainer");
     document.getElementById("mainPage").classList.add("mainPage");
 
-    document.getElementById("continue").addEventListener("click", () => {
-        if (state == "auto" && timer < 150) {
-            transition(2);
+    document.getElementById("continue").addEventListener("click", nextStage);
+    document.getElementById("back").addEventListener("click", previousStage);
+}
+
+function nextStage() {
+    if (state == "auto") {
+        transition(2);
+    }
+    else if (state == "tele") {
+        transition(4);
+    }
+    console.log("Continue Button Clicked");
+}
+
+function previousStage() {
+    if (state == "auto") {
+        abortMatch();
+    }
+    else if (state == "tele") {
+        let removeElem = (settings.tele.length) * 3
+        for (let i = 0; i < removeElem; i++) {
+            mainPageElem = document.getElementById("mainPage");
+            mainPageElem.removeChild(mainPageElem.lastElementChild)
         }
-        else if (state == "tele") {
-            transition(4);
-        }
-        console.log("Continue Button Clicked");
-    });
+        createAuto(autoPath.length > 0 ? autoPath[autoPath.length - 1].next : "starting")
+        state = "auto";
+    }
+    console.log("Back Button Clicked");
 }
 
 //buffers for phase switching
