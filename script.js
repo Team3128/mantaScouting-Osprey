@@ -1,7 +1,7 @@
 // import autoSettings from "./autoSettings.json";
 
 //variable declarations
-let state = "init", timer = 150, delay = true, rowContent = new Map(), notesToggled = false, allianceColor = "n";
+let state = "init", timer = 150, timerIsTicking = false, delay = true, rowContent = new Map(), notesToggled = false, allianceColor = "n";
 
 let dataPoints = new Map();
 let timeInt = 1000; // Time Interval, SHOULD BE 1000, 10 if speed!!!!!!!
@@ -387,8 +387,7 @@ function backupPoint() {
     }
     createAuto(autoHistory.pop());
     if (autoHistory.length == 1) {
-        clearInterval(timerFunction);
-        document.getElementById("display-timer").innerHTML = "";
+        timerStop();
     }
 }
 
@@ -784,15 +783,34 @@ function generateMainPage(stage) {
     }
 }
 
+timerInit();
+
 //defines time length, starts timer 
-function timerStart(i) {
-    timer = 150;
-    delay = true;
-    updateTimer();
+function timerInit() {
+    // if (window.timerFunction != null) return;
+    // timer = 150;
+    // delay = true;
+    // updateTimer();
     window.timerFunction = setInterval(updateTimer, timeInt)
-    console.log("timer started")
+    // console.log("timer started")
 }
+
+function timerStart() {
+    const firstStart = !timerIsTicking
+    timerIsTicking = true;
+    if (firstStart) {
+        timer = 150;
+        updateTimer();
+    }
+}
+
+function timerStop() {
+    timerIsTicking = false;
+    document.getElementById("display-timer").innerHTML = "";
+}
+
 function updateTimer() {
+    if (!timerIsTicking) return;
     document.getElementById("display-timer").innerHTML = timer;
     if (settings.imported.transitionMode == "manual") {
         timer--;
@@ -1106,7 +1124,7 @@ function  transition(i) {
         generateMainPage("auto");
     }
     if (i == 2) {
-        if (window.timerFunction == null) timerStart();
+        timerStart();
         convertAutoPathToData(dataPoints, autoPath);
         generateMainPage("tele");
     }
@@ -1130,7 +1148,7 @@ function resetGame() {
     rowContent = new Map();
     incArr = [];
     selected = -1;
-    if (window.timerFunction != null) clearInterval(window.timerFunction);
+    timerStop();
     notesToggled = false;
 
     //clearing main page and generating the displaybar
