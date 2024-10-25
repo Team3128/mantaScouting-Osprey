@@ -1077,7 +1077,7 @@ function  transition(i) {
                 alert("Enter your Scout ID.")
                 return;
             }
-            if (!(/^\d+$/.test(teamNum))) { //check if team number is a number
+            if (!(/^\d+$/.test(teamNum)) || !teamList.includes(parseInt(teamNum))) { //check if team number is a number
                 alert("Enter your team number correctly.")
                 return;
             }
