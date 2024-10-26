@@ -5,7 +5,7 @@ let state = "init", timer = 150, timerIsTicking = false, delay = true, rowConten
 
 let dataPoints = new Map();
 let timeInt = 1000; // Time Interval, SHOULD BE 1000, 10 if speed!!!!!!!
-let testing = false; // DISABLES INTRO PAGE CHECKS IF TRUE
+let testing = true; // DISABLES INTRO PAGE CHECKS IF TRUE
 
 let startAudio = new Audio("sfx/start.wav")
 
@@ -783,6 +783,11 @@ function generateMainPage(stage) {
     }
 }
 
+document.getElementById("qrTextDisplay").addEventListener("click", () => {
+    navigator.clipboard.writeText(document.getElementById("qrTextDisplay").innerHTML);
+    alert("String copied to clipboard");
+})
+
 timerInit();
 
 //defines time length, starts timer 
@@ -1166,7 +1171,7 @@ function resetGame() {
     document.getElementById("initMatchForm").value = parseInt(dataPoints.get("Match Number")) + 1;
     document.getElementById("initPositionForm").value = dataPoints.get("Team Position");
     document.getElementById("initColor").style = "background-color: var(--" + allianceColor + ")";
-    document.getElementById("qrDisplay").innerHTML = "";
+    document.getElementById("qrImage").innerHTML = "";
     document.getElementById("searchForm").value = '';
     document.getElementById("notes").value = '';
 
@@ -1329,7 +1334,8 @@ document.getElementById("searchConfirm").addEventListener("click", () => {
     searchTerm = document.getElementById("searchForm").value
     value = localStorage.getItem(searchTerm)
     if (value == null || searchTerm == null || searchTerm == '') {
-        document.getElementById('qrDisplay').innerHTML = "";
+        document.getElementById('qrImage').innerHTML = "";
+        document.getElementById('qrTextDisplay').display = "none";
         console.log("No data found")
         return
     }
@@ -1349,7 +1355,11 @@ document.getElementById("searchConfirm").addEventListener("click", () => {
     document.getElementById('qrOutput').style.height = length;
     */
 
-    document.getElementById('qrDisplay').innerHTML = qr.createImgTag();
+    const qrImage = qr.createImgTag();
+    document.getElementById('qrImage').innerHTML = qrImage;
+    document.getElementById('qrTextDisplay').style.display = "flex";
+    document.getElementById('qrTextDisplay').innerHTML = value;
+    
     console.log("Data found for match " + searchTerm + ": ");
     console.log(value);
 })

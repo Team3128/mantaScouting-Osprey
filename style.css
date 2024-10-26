@@ -392,9 +392,15 @@ svg:hover {
 
 #qrDisplay {
     height: 30vh;
-    width: 30vh;
+    width: 30vw;
     margin-left: auto;
     margin-right: auto;
+    display: flex;
+}
+
+#qrImage {
+    margin:auto;
+    justify-content: center;
 }
 
 
@@ -941,7 +947,7 @@ svg:hover {
     margin-bottom: 5vh;
 }
 
-#qrText {
+#qrText, #qrTextDisplay {
     font-size: 1rem;
     color: var(--mainColor);
     font-family: "Roboto Mono", monospace;
@@ -963,6 +969,14 @@ svg:hover {
     transition: 0.5s all;
 
     word-break: break-all;
+}
+
+#qrTextDisplay {
+    margin:auto;
+    margin-top: 0px;
+    display: none;
+    width: 33%;
+    height: 15%;
 }
 
 #qrText:hover {
