@@ -3,6 +3,7 @@
 //variable declarations
 let state = "init", timer = 150, timerIsTicking = false, delay = true, rowContent = new Map(), notesToggled = false, allianceColor = "n";
 
+let isFieldFlipped = false;
 let dataPoints = new Map();
 let timeInt = 1000; // Time Interval, SHOULD BE 1000, 10 if speed!!!!!!!
 let testing = true; // DISABLES INTRO PAGE CHECKS IF TRUE
@@ -19,6 +20,20 @@ ctx.drawImage(img, 0, 0);
 document.getElementById("fieldCanvas").addEventListener("click", () => {
     canvasClicked()
 })
+
+document.getElementById("flipBtn").addEventListener("click", flipField);
+
+function flipField() {
+    if (isFieldFlipped) {
+        document.getElementById("flipBtn").classList.add("red");
+        document.getElementById("flipBtn").classList.remove("green");
+    }
+    else {
+        document.getElementById("flipBtn").classList.add("green");
+        document.getElementById("flipBtn").classList.remove("red");
+    }
+    isFieldFlipped = !isFieldFlipped;
+}
 
 //canvas functions to get mouse position, translate to canvas position
 function getMousePos(canvas, evt) {
@@ -292,6 +307,11 @@ function getAbsPosition(point) {
     }
     let x = (allianceColor == "r" ? fieldLength - offset.x : offset.x);
     let y = offset.y;
+
+    if (isFieldFlipped) {
+        x = fieldLength - x;
+        y = fieldLength / 2 - y;
+    }
     return { x, y };
 }
 
@@ -358,10 +378,24 @@ function drawPath(canvas, pixelsPerMeter) {
 }
 
 function drawLine(ctx, prevPoint, point, pixelsPerMeter) {
-    const x = (allianceColor == "r" ? fieldLength - point.x : point.x) * pixelsPerMeter;
-    const y = field.height - point.y * pixelsPerMeter
-    const xStart = (allianceColor == "r" ? fieldLength - prevPoint.x : prevPoint.x) * pixelsPerMeter;
-    const yStart = field.height - prevPoint.y * pixelsPerMeter;
+    let x = (allianceColor == "r" ? fieldLength - point.x : point.x);
+    let y = point.y;
+    let xStart = (allianceColor == "r" ? fieldLength - prevPoint.x : prevPoint.x);
+    let yStart = prevPoint.y;
+    if (isFieldFlipped) {
+        x = fieldLength - x;
+        y = fieldLength / 2 - y;
+        xStart = fieldLength - xStart;
+        yStart = fieldLength / 2 - yStart
+    }
+    x *= pixelsPerMeter;
+    y = field.height - y * pixelsPerMeter;
+    xStart *= pixelsPerMeter;
+    yStart = field.height - yStart * pixelsPerMeter;
+    // const x = (allianceColor == "r" ? fieldLength - point.x : point.x) * pixelsPerMeter;
+    // const y = field.height - point.y * pixelsPerMeter;
+    // const xStart = (allianceColor == "r" ? fieldLength - prevPoint.x : prevPoint.x) * pixelsPerMeter;
+    // const yStart = field.height - prevPoint.y * pixelsPerMeter;
     const angle = Math.atan2(y - yStart, x - xStart);
     const headLen = 10;
 
@@ -1126,6 +1160,8 @@ function  transition(i) {
 
     }
     if (i == 1 && state == "standby") {
+        if (isFieldFlipped) field.classList.add("rotated");
+        else field.classList.remove("rotated");
         generateMainPage("auto");
     }
     if (i == 2) {

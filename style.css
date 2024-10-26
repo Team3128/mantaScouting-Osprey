@@ -388,7 +388,17 @@ svg:hover {
     font-size: 1rem;
 }
 
+.rotated {
+    transform: rotate(180deg);
+}
 
+.red {
+    background-color: rgb(151, 57, 57);
+}
+
+.green {
+    background-color: rgb(19, 158, 19);
+}
 
 #qrDisplay {
     height: 30vh;
