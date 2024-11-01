@@ -6,7 +6,7 @@ let state = "init", timer = 150, timerIsTicking = false, delay = true, rowConten
 let isFieldFlipped = false;
 let dataPoints = new Map();
 let timeInt = 1000; // Time Interval, SHOULD BE 1000, 10 if speed!!!!!!!
-let testing = true; // DISABLES INTRO PAGE CHECKS IF TRUE
+let testing = false; // DISABLES INTRO PAGE CHECKS IF TRUE
 
 let startAudio = new Audio("sfx/start.wav")
 
