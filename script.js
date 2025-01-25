@@ -163,10 +163,10 @@ window.addEventListener('keydown', function (keystroke) {
             document.getElementById('notes').focus()
             notesToggled = true;
 
-            if (dataPoints.QATA == null) {
+            if (dataPoints.qata == null) {
                 document.getElementById("notes").innerHTML = " ";
             } else {
-                dataPoints.QATA = document.getElementById("notes").innerHTML;
+                dataPoints.qata = document.getElementById("notes").innerHTML;
             }
         }
         else {
@@ -174,7 +174,7 @@ window.addEventListener('keydown', function (keystroke) {
 
             document.getElementById('notesPage').classList.add("notesPageAnimR")
             document.getElementById('notes').classList.add("notesAnimR")
-            dataPoints.QATA = document.getElementById("notes").value
+            dataPoints.qata = document.getElementById("notes").value
             notesToggled = false;
         }
 
@@ -493,8 +493,8 @@ function resetAuto() {
 //reads settings.js file, generates HTML for the app using that info
 function generateMainPage(stage) {
     state = stage;
-    document.getElementById("display-match").innerHTML = "Match:  " + dataPoints.get("Match Number");
-    document.getElementById("display-team").innerHTML = "Team: " + dataPoints.get("Team Number");
+    document.getElementById("display-match").innerHTML = "Match:  " + dataPoints.get("match_number");
+    document.getElementById("display-team").innerHTML = "Team: " + dataPoints.get("team_number");
     if (stage == "auto") {
         resetAuto();
     }
@@ -540,7 +540,7 @@ function generateMainPage(stage) {
 
         //close notes box if it is open
         document.getElementById('notes').blur()
-        dataPoints.set("QATA", document.getElementById("notes").value);
+        dataPoints.set("qata", document.getElementById("notes").value);
         document.getElementById("notes").classList.remove("notesAnim")
         document.getElementById("notes").classList.remove("notesAnimR")
         document.getElementById("notesPage").classList.remove("notesPageAnim")
@@ -648,7 +648,7 @@ function generateMainPage(stage) {
                 container.appendChild(labelText);
 
 
-                if (settings.after[i].label == "QATA") {
+                if (settings.after[i].label == "qata") {
                     const textbox = document.createElement("textarea");
                     textbox.classList.add("afterTextBox");
                     textbox.setAttribute("id", ("str" + settings.after[i].label));
@@ -656,10 +656,10 @@ function generateMainPage(stage) {
                     textbox.style.height = "14vh";
                     textbox.style.paddingTop = "7px";
                     textbox.style.resize = "none";
-                    console.log("other qata from notes: " + dataPoints.get("QATA"));
-                    textbox.innerHTML = dataPoints.get("QATA");
+                    console.log("other qata from notes: " + dataPoints.get("qata"));
+                    textbox.innerHTML = dataPoints.get("qata");
                     textbox.addEventListener("input", () => {
-                        dataPoints.set("QATA", textbox.value);
+                        dataPoints.set("qata", textbox.value);
                         updateQr();
                     })
                     container.appendChild(textbox)
@@ -1121,7 +1121,7 @@ function clickEvt(type, loc, rev = null) {
 
     if (type == "transition") {
         if (confirm("Resetting game... Are you sure you have been scanned and given OK?")) {
-            localStorage.setItem(dataPoints.get("Match Number"), JSON.stringify(dataPoints, (key, value) => (value instanceof Map ? [...value] : value)));
+            localStorage.setItem(dataPoints.get("match_number"), JSON.stringify(dataPoints, (key, value) => (value instanceof Map ? [...value] : value)));
             console.log("Final Data: " + dataPoints);
             resetGame()
         }
@@ -1255,10 +1255,10 @@ function resetGame() {
     document.getElementById("infoBar").innerHTML = '';
 
     //resetting initial page values
-    document.getElementById("initIdForm").value = dataPoints.get("Scout ID");
+    document.getElementById("initIdForm").value = dataPoints.get("scout_id");
     document.getElementById("initNumberForm").value = '';
-    document.getElementById("initMatchForm").value = parseInt(dataPoints.get("Match Number")) + 1;
-    document.getElementById("initPositionForm").value = dataPoints.get("Team Position");
+    document.getElementById("initMatchForm").value = parseInt(dataPoints.get("match_number")) + 1;
+    document.getElementById("initPositionForm").value = dataPoints.get("team_position");
     document.getElementById("initColor").style = "background-color: var(--" + allianceColor + ")";
     document.getElementById("qrImage").innerHTML = "";
     document.getElementById("searchForm").value = '';
@@ -1388,7 +1388,7 @@ function abortMatch() {
         // The user clicked "OK", so proceed with the action
         console.log("User confirmed, proceeding...");
         let tempNum = document.getElementById("initNumberForm").value;
-        dataPoints.set("Match Number", dataPoints.get("Match Number") - 1);
+        dataPoints.set("match_number", dataPoints.get("match_number") - 1);
         resetGame();
         document.getElementById("initNumberForm").value = tempNum;
         notesToggled = false;
