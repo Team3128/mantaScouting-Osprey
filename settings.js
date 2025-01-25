@@ -223,39 +223,46 @@ let settings = {
     "after": [
 
         {
-            "label": "Climbing QATA",
+            "label": "climbing_qata",
+            "display": "Climbing QATA",
             "writeType": "str",
             "placeholder": "e.g. harmonized? speed? good trap+climb?"
         },
         {
-            "label": "Defense QATA",
+            "label": "defense_qata",
+            "display": "Defense QATA",
             "writeType": "str",
             "placeholder": "how did they play defense? push power? speed?"
         },
         {
-            "label": "QATA",
+            "label": "qata",
+            "display": "QATA",
             "writeType": "str",
             "placeholder": "e.g. how are they scoring? speed? skill?"
         }
     ],
     "start": [
         {
-            "label": "Scout ID",
+            "label": "scout_id",
+            "display": "Scout ID",
             "writeType": "strBegin",
-            "placeholder": "your team # + your name"
+            "placeholder": "your name"
         },
         {
-            "label": "Team Number",
+            "label": "team_number",
+            "display": "Team Number",
             "writeType": "strBegin",
             "placeholder": "# of the team you are scouting"
         },
         {
-            "label": "Match Number",
+            "label": "match_number",
+            "display": "Match Number",
             "writeType": "strBegin",
             "placeholder": "current match #"
         },
         {
-            "label": "Team Position",
+            "label": "team_position",
+            "display": "Team Position",
             "writeType": "strBegin",
             "placeholder": "1, 2, or 3"
         }

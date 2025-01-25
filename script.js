@@ -10,6 +10,8 @@ let testing = true; // DISABLES INTRO PAGE CHECKS IF TRUE
 
 let startAudio = new Audio("sfx/start.wav")
 
+let clickAudio = new Audio("sfx/click.wav")
+
 //import field image and draw on canvas for starting position
 var img = new Image();
 img.src = 'img/field.png';
@@ -580,7 +582,7 @@ function generateMainPage(stage) {
 
                 const label = document.createElement("div");
                 label.classList.add("qataLabel");
-                label.innerHTML = settings.after[i].label;
+                label.innerHTML = settings.after[i].display;
                 container.appendChild(label);
 
                 const bar = document.createElement("div");
@@ -609,7 +611,7 @@ function generateMainPage(stage) {
 
                 const labelText = document.createElement("div");
                 labelText.classList.add("qataLabel");
-                labelText.innerHTML = settings.after[i].label;
+                labelText.innerHTML = settings.after[i].display;
                 container.appendChild(labelText);
 
                 const labelElem = document.createElement("label");
@@ -642,7 +644,7 @@ function generateMainPage(stage) {
 
                 const labelText = document.createElement("div");
                 labelText.classList.add("qataLabel");
-                labelText.innerHTML = settings.after[i].label;
+                labelText.innerHTML = settings.after[i].display;
                 container.appendChild(labelText);
 
 
@@ -688,7 +690,7 @@ function generateMainPage(stage) {
             container.classList.add("afterPageStartItem");
             const labelText = document.createElement("div");
             labelText.classList.add("afterPageStartLabel");
-            labelText.innerHTML = settings.start[i].label;
+            labelText.innerHTML = settings.start[i].display;
             container.appendChild(labelText);
             const textbox = document.createElement("input");
             textbox.type = "text";
@@ -931,7 +933,7 @@ function updateTimer() {
 let isSorted = false;
 function updateQr() {
     combAllianceColor = allianceColor + dataPoints.get("Team Position");
-    dataPoints.set("Alliance Color", allianceColor);
+    dataPoints.set("alliance_color", allianceColor);
 
     if (!isSorted) sortData();
 
@@ -949,7 +951,7 @@ function updateQr() {
 
 function sortData() {
     const sortedData = new Map();
-    const metaData = ["Scout ID", "Team Number", "Match Number", "Team Position", "Scout Team"]
+    const metaData = ["scout_id", "team_number", "match_number", "team_position", "scout_team"]
     for (const key of metaData) {
         sortedData.set(key, dataPoints.get(key));
     }
@@ -979,7 +981,6 @@ let incArr = []
 let selected = -1;
 function clickEvt(type, loc, rev = null) {
     console.log(type + " " + loc);
-    let clickAudio = new Audio("sfx/click.wav")
     clickAudio.play();
     //during game
     if (type == "int") {
@@ -1178,12 +1179,12 @@ function  transition(i) {
             }
         }
 
-        dataPoints.set("Scout ID", scoutID);
-        dataPoints.set("Team Number", parseInt(teamNum));
-        dataPoints.set("Match Number", parseInt(matchNum));
-        dataPoints.set("Team Position", parseInt(teamPos));
-        dataPoints.set("Scout Team", parseInt(scoutTeam));
-        dataPoints.set("Alliance Color", allianceColor);
+        dataPoints.set("scout_id", scoutID);
+        dataPoints.set("team_number", parseInt(teamNum));
+        dataPoints.set("match_number", parseInt(matchNum));
+        dataPoints.set("team_position", parseInt(teamPos));
+        dataPoints.set("scout_team", parseInt(scoutTeam));
+        dataPoints.set("alliance_color", allianceColor);
 
         combAllianceColor = allianceColor + teamPos;
         console.log("alliance color: " + combAllianceColor);
@@ -1206,6 +1207,7 @@ function  transition(i) {
     if (i == 1 && state == "standby") {
         if (isFieldFlipped) field.classList.add("rotated");
         else field.classList.remove("rotated");
+        startAudio.play();
         generateMainPage("auto");
     }
     if (i == 2) {
