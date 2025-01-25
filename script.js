@@ -932,7 +932,7 @@ function updateTimer() {
 
 let isSorted = false;
 function updateQr() {
-    combAllianceColor = allianceColor + dataPoints.get("Team Position");
+    combAllianceColor = allianceColor + dataPoints.get("team_position");
     dataPoints.set("alliance_color", allianceColor);
 
     if (!isSorted) sortData();
@@ -942,7 +942,9 @@ function updateQr() {
     var typeNumber = 0;
     var errorCorrectionLevel = 'L';
     var qr = qrcode(typeNumber, errorCorrectionLevel);
+    console.log(dataPoints);
     let stuff = JSON.stringify(dataPoints, (key, value) => (value instanceof Map ? [...value] : value));
+    console.log(stuff);
     qr.addData(stuff);
     qr.make();
     document.getElementById('qrContainer').innerHTML = qr.createImgTag();

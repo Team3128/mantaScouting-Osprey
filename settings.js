@@ -126,7 +126,7 @@ let settings = {
             "writeType": "int"
         },
         {
-            "label": "tele_algae_hp",
+            "label": "algae_hp",
             "display" : "Algae HP",
             "trigger": "g",
             "columnStart": 3,
@@ -136,7 +136,7 @@ let settings = {
             "writeType": "int"
         },
         {
-            "label:": "tele_algae_hp_miss",
+            "label": "algae_hp_miss",
             "display" : "Algae HP Miss",
             "trigger": "h",
             "columnStart": 4,
