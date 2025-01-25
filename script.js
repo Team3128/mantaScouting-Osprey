@@ -8,9 +8,9 @@ let dataPoints = new Map();
 let timeInt = 1000; // Time Interval, SHOULD BE 1000, 10 if speed!!!!!!!
 let testing = false; // DISABLES INTRO PAGE CHECKS IF TRUE
 
-let startAudio = new Audio("sfx/start.wav")
+let startAudio = new Audio("sfx/amyMeowing.mp3")
 
-let clickAudio = new Audio("sfx/click.wav")
+let clickAudio = new Audio("sfx/braylon.mp3")
 
 //import field image and draw on canvas for starting position
 var img = new Image();
