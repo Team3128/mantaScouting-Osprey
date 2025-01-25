@@ -1,12 +1,12 @@
 // import autoSettings from "./autoSettings.json";
 
 //variable declarations
-let state = "init", timer = 150, timerIsTicking = false, delay = true, rowContent = new Map(), notesToggled = false, allianceColor = "n";
+let state = "init", timer = 135, timerIsTicking = false, delay = true, rowContent = new Map(), notesToggled = false, allianceColor = "n";
 
 let isFieldFlipped = false;
 let dataPoints = new Map();
 let timeInt = 1000; // Time Interval, SHOULD BE 1000, 10 if speed!!!!!!!
-let testing = false; // DISABLES INTRO PAGE CHECKS IF TRUE
+let testing = true; // DISABLES INTRO PAGE CHECKS IF TRUE
 
 let startAudio = new Audio("sfx/start.wav")
 
@@ -17,6 +17,7 @@ var canvas = document.getElementById('fieldCanvas');
 var ctx = canvas.getContext('2d');
 ctx.clearRect(0, 0, canvas.width, canvas.height);
 ctx.drawImage(img, 0, 0);
+
 document.getElementById("fieldCanvas").addEventListener("click", () => {
     canvasClicked()
 })
@@ -187,7 +188,7 @@ window.addEventListener('keydown', function (keystroke) {
         transition(1)
     }
 
-    if (state == "auto") {
+    if (state == "auto" && false) {
         if (autoKeybinds.has(keystroke.key)) {
             autoKeybinds.get(keystroke.key)();
         }
@@ -197,22 +198,25 @@ window.addEventListener('keydown', function (keystroke) {
         var set = settings.auto[i];
         var tes = settings.tele[i];
         if (state == "auto") {
-            //console.log(set.label)
             if (set && set.trigger == keystroke.key) {
                 clickEvt(set.writeType, set.label);
+                return;
             }
             if (set && set.trigger.toUpperCase() == keystroke.key) {
                 clickEvt(set.writeType, set.label, true);
                 console.log("reverse")
+                return;
             }
         }
         if (state == "tele") {
             if (tes && tes.trigger == keystroke.key) {
                 clickEvt(tes.writeType, tes.label);
+                return;
             }
             if (tes && tes.trigger.toUpperCase() == keystroke.key) {
                 clickEvt(tes.writeType, tes.label, true);
                 console.log("reverse")
+                return;
             }
         }
     }
@@ -438,12 +442,49 @@ function resetAutoSettings() {
 }
 
 function resetAuto() {
+    if (true) {
+        for(i=0; i<settings.auto.length; i++){
+            const box = document.createElement("div")
+            const wLoc = settings.auto[i].label;
+            const display = settings.auto[i].display;
+            box.innerHTML = display;
+            box.classList.add("mainPageBox");
+            box.style.gridColumnStart = settings.auto[i].columnStart;
+            box.style.gridColumnEnd = settings.auto[i].columnEnd;
+            box.style.gridRowStart = settings.auto[i].rowStart;
+            box.style.gridRowEnd = settings.auto[i].rowEnd;
+            let wType = settings.auto[i].writeType;
+            box.id = "box" + wLoc
+            box.addEventListener("click", ()=>clickEvt(wType, wLoc))
+            document.getElementById("mainPage").appendChild(box);
+
+            const boxLabel = document.createElement("div");
+            boxLabel.classList.add("mainPageLabel");
+            boxLabel.style.gridColumn = (settings.auto[i].columnEnd-1) + "/" + (settings.auto[i].columnEnd-1);
+            boxLabel.style.gridRow = (settings.auto[i].rowEnd-1) + "/" + (settings.auto[i].rowEnd-1);
+            boxLabel.innerHTML = settings.auto[i].trigger.toUpperCase()
+            boxLabel.addEventListener("click", ()=>clickEvt(wType, wLoc))
+            document.getElementById("mainPage").appendChild(boxLabel);
+
+            const boxCount = document.createElement("div");
+            boxCount.classList.add("mainPageCounter");
+            boxCount.id = "label" + wLoc;
+            boxCount.innerHTML = dataPoints.get(wLoc);
+            boxCount.style.gridColumn = settings.auto[i].columnStart + "/" + settings.auto[i].columnStart;
+            boxCount.style.gridRow = (settings.auto[i].rowEnd-1) + "/" + (settings.auto[i].rowEnd-1);
+            boxCount.addEventListener("click", ()=>clickEvt(wType, wLoc))
+            document.getElementById("mainPage").appendChild(boxCount);
+            
+        }
+    }
+    else {
+        autoPath = [];
+        autoHistory = [];
+        resetAutoSettings();
+        createAuto("starting");
+    }
     document.getElementById("initPage").style.display = "none";
     document.getElementById("mainPage").style.display = "grid";
-    autoPath = [];
-    autoHistory = [];
-    resetAutoSettings();
-    createAuto("starting");
     state = "auto";
 }
 
@@ -460,7 +501,8 @@ function generateMainPage(stage) {
         for (i = 0; i < settings.tele.length; i++) {
             const box = document.createElement("div")
             const wLoc = settings.tele[i].label;
-            box.innerHTML = wLoc;
+            const display = settings.tele[i].display;
+            box.innerHTML = display;
             box.classList.add("mainPageBox");
             box.style.gridColumnStart = settings.tele[i].columnStart;
             box.style.gridColumnEnd = settings.tele[i].columnEnd;
@@ -728,7 +770,7 @@ function generateMainPage(stage) {
             for (let b = 0; b < 2; b++) {
                 let content;
                 if (b % 2 == 0) {
-                    content = value.label;
+                    content = value.display;
                 }
                 if (b % 2 == 1) {
                     content = dataPoints.get(value.label);
@@ -827,7 +869,7 @@ timerInit();
 //defines time length, starts timer 
 function timerInit() {
     // if (window.timerFunction != null) return;
-    // timer = 150;
+    // timer = 135;
     // delay = true;
     // updateTimer();
     window.timerFunction = setInterval(updateTimer, timeInt)
@@ -838,7 +880,7 @@ function timerStart() {
     const firstStart = !timerIsTicking
     timerIsTicking = true;
     if (firstStart) {
-        timer = 150;
+        timer = 135;
         updateTimer();
     }
 }
@@ -1092,9 +1134,11 @@ setInterval(() => {
     if ((state == "after") || (state == "init")) {
         return;
     }
-    for (let i = 0; i < incArr.length; i++) {
-        dataPoints.set(incArr[i], dataPoints.get(incArr[i]) + 1);
-        document.getElementById("label" + incArr[i]).innerHTML = dataPoints.get(incArr[i]);
+    if (timer > 0) {
+        for (let i = 0; i < incArr.length; i++) {
+            dataPoints.set(incArr[i], dataPoints.get(incArr[i]) + 1);
+            document.getElementById("label" + incArr[i]).innerHTML = dataPoints.get(incArr[i]);
+        }
     }
 }, 1000)
 
@@ -1165,8 +1209,14 @@ function  transition(i) {
         generateMainPage("auto");
     }
     if (i == 2) {
+        let removeElem = (settings.auto.length) * 3
+        for (let i = 0; i < removeElem; i++) {
+
+            mainPageElem = document.getElementById("mainPage");
+            mainPageElem.removeChild(mainPageElem.lastElementChild)
+        }
         timerStart();
-        convertAutoPathToData(dataPoints, autoPath);
+        // convertAutoPathToData(dataPoints, autoPath);
         generateMainPage("tele");
     }
     if (i == 4) {
@@ -1184,7 +1234,7 @@ function resetGame() {
     isSorted = false;
     document.getElementById("autoPage").style.display = "none";
     state = "init";
-    timer = 150;
+    timer = 135;
     delay = true;
     rowContent = new Map();
     incArr = [];
@@ -1284,7 +1334,10 @@ function previousStage() {
             mainPageElem = document.getElementById("mainPage");
             mainPageElem.removeChild(mainPageElem.lastElementChild)
         }
-        createAuto(autoPath.length > 0 ? autoPath[autoPath.length - 1].next : "starting")
+        if (true) {
+            generateMainPage("auto");
+        }
+        // createAuto(autoPath.length > 0 ? autoPath[autoPath.length - 1].next : "starting")
         state = "auto";
     }
     console.log("Back Button Clicked");

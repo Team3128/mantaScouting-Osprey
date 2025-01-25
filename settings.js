@@ -3,198 +3,221 @@ let settings = {
         "transitionMode": "auto"
     },
     "auto": [
-        //cube cone buttons
         {
-            "label": "Auto Amp",
-            "trigger": "e",
+            "label": "auto_l4",
+            "display": "🪸 L4",
+            "trigger": "q",
             "columnStart": 1,
             "columnEnd": 3,
             "rowStart": 1,
+            "rowEnd": 2,
+            "writeType": "int"
+        },
+        {
+            "label": "auto_l3",
+            "display": "🪸 L3",
+            "trigger": "w",
+            "columnStart": 1,
+            "columnEnd": 3,
+            "rowStart": 2,
             "rowEnd": 3,
             "writeType": "int"
         },
         {
-            "label": "Oof Time",
-            "trigger": "k",
-            "columnStart": 4,
-            "columnEnd": 5,
+            "label": "auto_l2",
+            "display": "🪸 L2",
+            "trigger": "e",
+            "columnStart": 1,
+            "columnEnd": 3,
             "rowStart": 3,
             "rowEnd": 4,
-            "writeType": "inc"
+            "writeType": "int"
         },
         {
-            "label": "Midline Notes",
-            "trigger": "m",
-            "columnStart": 4,
-            "columnEnd": 5,
+            "label": "auto_l1",
+            "display": "🪸 L1",
+            "trigger": "r",
+            "columnStart": 1,
+            "columnEnd": 3,
             "rowStart": 4,
             "rowEnd": 5,
             "writeType": "int"
         },
         {
-            "label": "Auto Miss S",
+            "label": "auto_algae_processor",
+            "display": "Algae Proc",
             "trigger": "s",
-            "columnStart": 1,
-            "columnEnd": 2,
-            "rowStart": 3,
-            "rowEnd": 5,
-            "writeType": "int"
-        },
-        {
-            "label": "Auto Miss A",
-            "trigger": "d",
-            "columnStart": 2,
-            "columnEnd": 3,
-            "rowStart": 3,
-            "rowEnd": 5,
-            "writeType": "int"
-        },
-        {
-            "label": "Auto Speaker",
-            "trigger": "r",
             "columnStart": 3,
             "columnEnd": 5,
             "rowStart": 1,
+            "rowEnd": 2,
+            "writeType": "int"
+        },
+        {
+            "label": "auto_algae_net",
+            "display": "Algae Net",
+            "trigger": "d",
+            "columnStart": 3,
+            "columnEnd": 4,
+            "rowStart": 2,
             "rowEnd": 3,
             "writeType": "int"
         },
-        //cube cone buttons end
-
         {
-            "label": "Leave",
-            "trigger": "j",
+            "label": "auto_algae_net_miss",
+            "display": "Algae Net Miss",
+            "trigger": "f",
+            "columnStart": 4,
+            "columnEnd": 5,
+            "rowStart": 2,
+            "rowEnd": 3,
+            "writeType": "int"
+        },
+        {
+            "label": "leave",
+            "display": "Leave",
+            "trigger": "a",
             "columnStart": 3,
-            "columnEnd": 4,
+            "columnEnd": 5,
             "rowStart": 3,
             "rowEnd": 5,
             "writeType": "bool"
         }
     ],
     "tele": [
-        //coral buttons
         {
-            "label": "🪸 L4",
+            "label": "tele_l4",
+            "display" : "🪸 L4",
+            "trigger": "q",
+            "columnStart": 1,
+            "columnEnd": 2,
+            "rowStart": 1,
+            "rowEnd": 2,
+            "writeType": "int"
+        },
+        {
+            "label": "tele_l3",
+            "display" : "🪸 L3",
+            "trigger": "w",
+            "columnStart": 2,
+            "columnEnd": 3,
+            "rowStart": 1,
+            "rowEnd": 2,
+            "writeType": "int"
+        },
+        {
+            "label": "tele_l2",
+            "display" : "🪸 L2",
             "trigger": "e",
             "columnStart": 1,
-            "columnEnd": 3,
-            "rowStart": 1,
-            "rowEnd": 2,
-            "writeLoc": 5,
+            "columnEnd": 2,
+            "rowStart": 2,
+            "rowEnd": 3,
             "writeType": "int"
         },
         {
-            "label": "🪸 L2",
-            "trigger": "d",
-            "columnStart": 1,
-            "columnEnd": 3,
-            "rowStart": 3,
-            "rowEnd": 4,
-            "writeLoc": 6,
-            "writeType": "int"
-        },
-        {
-            "label": "🪸 L3",
+            "label": "tele_l1",
+            "display" : "🪸 L1",
             "trigger": "r",
-            "columnStart": 1,
+            "columnStart": 2,
             "columnEnd": 3,
             "rowStart": 2,
             "rowEnd": 3,
-            "writeLoc": 7,
             "writeType": "int"
         },
         {
-            "label": "Algae Proc",
-            "trigger": "u",
+            "label": "tele_algae_hp",
+            "display" : "Algae HP",
+            "trigger": "g",
+            "columnStart": 3,
+            "columnEnd": 4,
+            "rowStart": 1,
+            "rowEnd": 2,
+            "writeType": "int"
+        },
+        {
+            "label:": "tele_algae_hp_miss",
+            "display" : "Algae HP Miss",
+            "trigger": "h",
             "columnStart": 4,
+            "columnEnd": 5,
+            "rowStart": 1,
+            "rowEnd": 2,
+            "writeType": "int"
+        },
+        {
+            "label": "tele_algae_net",
+            "display" : "Algae Net",
+            "trigger": "s",
+            "columnStart": 3,
+            "columnEnd": 4,
+            "rowStart": 2,
+            "rowEnd": 3,
+            "writeType": "int"
+        },
+        {
+            "label": "tele_algae_net_miss",
+            "display" : "Algae Net Miss",
+            "trigger": "d",
+            "columnStart": 4,
+            "columnEnd": 5,
+            "rowStart": 2,
+            "rowEnd": 3,
+            "writeType": "int"
+        },
+        {
+            "label": "tele_algae_processor",
+            "display" : "Algae Proc",
+            "trigger": "f",
+            "columnStart": 3,
             "columnEnd": 5,
             "rowStart": 3,
             "rowEnd": 4,
-            "writeLoc": 10,
             "writeType": "int"
         },
-        //scoring buttons end
         {
-            "label": "🪸 L1",
-            "trigger": "v",
+            "label": "climb_level",
+            "display" : "Climb Level",
+            "trigger": "a",
             "columnStart": 1,
             "columnEnd": 3,
-            "rowStart": 4,
-            "rowEnd": 5,
-            "writeLoc": 14,
-            "writeType": "int"
-        },
-        {
-            "label": "Climb P/S/D",
-            "trigger": "j",
-            "columnStart": 3,
-            "columnEnd": 4,
             "rowStart": 3,
             "rowEnd": 4,
-            "writeLoc": 12,
             "writeType": "cycG",
-            "cycGOptions": [0, 2, 6, 12],
-            "writeCycGOptions": 3
+            "cycGOptions": [0, 2, 6, 12]
+
         },
         {
-            "label": "Defence",
+            "label": "oof_time",
+            "display" : "Oof Time",
+            "trigger": "j",
+            "columnStart": 1,
+            "columnEnd": 3,
+            "rowStart": 4,
+            "rowEnd": 5,
+            "writeType": "inc"
+        },
+        {
+            "label": "defending_time",
+            "display" : "Defending Time",
+            "trigger": "k",
+            "columnStart": 3,
+            "columnEnd": 4,
+            "rowStart": 4,
+            "rowEnd": 5,
+            "writeType": "inc"
+        },
+        {
+            "label": "defended_time",
+            "display" : "Defended Time",
             "trigger": "l",
             "columnStart": 4,
             "columnEnd": 5,
             "rowStart": 4,
             "rowEnd": 5,
-            "writeLoc": 15,
             "writeType": "inc"
-        },
-        {
-            "label": "AlgaeHP",
-            "trigger": "l",
-            "columnStart": 3,
-            "columnEnd": 4,
-            "rowStart": 1,
-            "rowEnd": 2,
-            "writeLoc": 8,
-            "writeType": "int"
-        },
-        {
-            "label": "AlgaeHP Miss",
-            "trigger": "l",
-            "columnStart": 3,
-            "columnEnd": 4,
-            "rowStart": 2,
-            "rowEnd": 3,
-            "writeLoc": 11,
-            "writeType": "int"
-        },
-        {
-            "label": "Oof ⏳",
-            "trigger": "l",
-            "columnStart": 3,
-            "columnEnd": 4,
-            "rowStart": 4,
-            "rowEnd": 5,
-            "writeLoc": 8,
-            "writeType": "inc"
-        },
-        {
-            "label": "Algae Net",
-            "trigger": "i",
-            "columnStart": 4,
-            "columnEnd": 5,
-            "rowStart": 1,
-            "rowEnd": 2,
-            "writeLoc": 9,
-            "writeType": "int"
-        },
-        {
-            "label": "Algae Net Miss",
-            "trigger": "i",
-            "columnStart": 4,
-            "columnEnd": 5,
-            "rowStart": 2,
-            "rowEnd": 3,
-            "writeLoc": 13,
-            "writeType": "int"
         }
+
     ],
 
     "after": [
