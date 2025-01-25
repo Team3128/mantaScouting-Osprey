@@ -6,7 +6,7 @@ let state = "init", timer = 135, timerIsTicking = false, delay = true, rowConten
 let isFieldFlipped = false;
 let dataPoints = new Map();
 let timeInt = 1000; // Time Interval, SHOULD BE 1000, 10 if speed!!!!!!!
-let testing = true; // DISABLES INTRO PAGE CHECKS IF TRUE
+let testing = false; // DISABLES INTRO PAGE CHECKS IF TRUE
 
 let startAudio = new Audio("sfx/start.wav")
 
@@ -1161,7 +1161,8 @@ function  transition(i) {
                 alert("Enter your Scout ID.")
                 return;
             }
-            if (!(/^\d+$/.test(teamNum)) || !teamList.includes(parseInt(teamNum))) { //check if team number is a number
+            if (!(/^\d+$/.test(teamNum))) {
+            // if (!(/^\d+$/.test(teamNum)) || !teamList.includes(parseInt(teamNum))) { //check if team number is a number
                 alert("Enter your team number correctly.")
                 return;
             }
