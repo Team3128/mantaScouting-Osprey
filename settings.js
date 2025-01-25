@@ -45,7 +45,7 @@ let settings = {
         },
         {
             "label": "auto_algae_processor",
-            "display": "Algae Proc",
+            "display": "🦠 Algae Proc",
             "trigger": "s",
             "columnStart": 3,
             "columnEnd": 5,
@@ -55,7 +55,7 @@ let settings = {
         },
         {
             "label": "auto_algae_net",
-            "display": "Algae Net",
+            "display": "🦠 Algae Net",
             "trigger": "d",
             "columnStart": 3,
             "columnEnd": 4,
@@ -65,7 +65,7 @@ let settings = {
         },
         {
             "label": "auto_algae_net_miss",
-            "display": "Algae Net Miss",
+            "display": "🦠 Algae Net Miss",
             "trigger": "f",
             "columnStart": 4,
             "columnEnd": 5,
@@ -75,7 +75,7 @@ let settings = {
         },
         {
             "label": "leave",
-            "display": "Leave",
+            "display": "🍶 Leave",
             "trigger": "a",
             "columnStart": 3,
             "columnEnd": 5,
@@ -127,7 +127,7 @@ let settings = {
         },
         {
             "label": "algae_hp",
-            "display" : "Algae HP",
+            "display" : "🦠 Algae HP",
             "trigger": "g",
             "columnStart": 3,
             "columnEnd": 4,
@@ -137,7 +137,7 @@ let settings = {
         },
         {
             "label": "algae_hp_miss",
-            "display" : "Algae HP Miss",
+            "display" : "🦠 Algae HP Miss",
             "trigger": "h",
             "columnStart": 4,
             "columnEnd": 5,
@@ -147,7 +147,7 @@ let settings = {
         },
         {
             "label": "tele_algae_net",
-            "display" : "Algae Net",
+            "display" : "🦠 Algae Net",
             "trigger": "s",
             "columnStart": 3,
             "columnEnd": 4,
@@ -157,7 +157,7 @@ let settings = {
         },
         {
             "label": "tele_algae_net_miss",
-            "display" : "Algae Net Miss",
+            "display" : "🦠 Algae Net Miss",
             "trigger": "d",
             "columnStart": 4,
             "columnEnd": 5,
@@ -167,7 +167,7 @@ let settings = {
         },
         {
             "label": "tele_algae_processor",
-            "display" : "Algae Proc",
+            "display" : "🦠 Algae Proc",
             "trigger": "f",
             "columnStart": 3,
             "columnEnd": 5,
@@ -177,7 +177,7 @@ let settings = {
         },
         {
             "label": "climb_level",
-            "display" : "Climb Level",
+            "display" : "🪜 Climb Level",
             "trigger": "a",
             "columnStart": 1,
             "columnEnd": 3,
@@ -189,7 +189,7 @@ let settings = {
         },
         {
             "label": "oof_time",
-            "display" : "Oof Time",
+            "display" : "🚑 Oof Time",
             "trigger": "j",
             "columnStart": 1,
             "columnEnd": 3,
@@ -199,7 +199,7 @@ let settings = {
         },
         {
             "label": "defending_time",
-            "display" : "Defending Time",
+            "display" : "🛡️ Defending Time",
             "trigger": "k",
             "columnStart": 3,
             "columnEnd": 4,
@@ -209,7 +209,7 @@ let settings = {
         },
         {
             "label": "defended_time",
-            "display" : "Defended Time",
+            "display" : "🩸🗡️ Defended Time",
             "trigger": "l",
             "columnStart": 4,
             "columnEnd": 5,

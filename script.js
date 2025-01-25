@@ -10,8 +10,6 @@ let testing = false; // DISABLES INTRO PAGE CHECKS IF TRUE
 
 let startAudio = new Audio("sfx/amyMeowing.mp3")
 
-let clickAudio = new Audio("sfx/braylon.mp3")
-
 //import field image and draw on canvas for starting position
 var img = new Image();
 img.src = 'img/field.png';
@@ -983,6 +981,9 @@ let incArr = []
 let selected = -1;
 function clickEvt(type, loc, rev = null) {
     console.log(type + " " + loc);
+    const clickAudioFiles = ["sfx/braylon.mp3"];
+    const randomIndex = Math.floor(Math.random() * clickAudioFiles.length);
+    let clickAudio = new Audio(clickAudioFiles[randomIndex]);
     clickAudio.play();
     //during game
     if (type == "int") {
@@ -1320,6 +1321,8 @@ function resetGame() {
 }
 
 function nextStage() {
+    const nextStageAudio = new Audio("sfx/saevin.mp3")
+    nextStageAudio.play();
     if (state == "auto") {
         transition(2);
     }

@@ -518,6 +518,7 @@ svg:hover {
 
     justify-content: center;
     align-items: center;
+    text-align: center;
 
     z-index: 1;
 }
@@ -595,6 +596,7 @@ svg:hover {
     font-size: 1.5em;
     font-family: "Roboto Mono", monospace;
     margin: auto;
+    margin-right: 3px;
     /* margin-left: 1%; */
 }
 
@@ -604,6 +606,7 @@ svg:hover {
     font-size: 1.5em;
     font-family: "Roboto Mono", monospace;
     margin: auto;
+    margin-left: 3px;
     /* margin-left: 1%; */
 }
 
