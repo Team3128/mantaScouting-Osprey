@@ -760,7 +760,7 @@ function generateMainPage(stage) {
 
         console.log(rowContent.size)
 
-
+        let index = 0;
         for (const value of rowContent.values()) {
             var row = document.createElement("tr");
             row.addEventListener("click", () => clickEvt("edit", value.label));
@@ -788,7 +788,21 @@ function generateMainPage(stage) {
                 }
                 row.appendChild(cell);
             }
+            if (index == settings.auto.length) {
+                var title = document.createElement("h4");
+                title.innerHTML = "Teleop";
+                title.classList.add("editPageTitle");
+                tableBody.appendChild(title);
+            }
+            else if (index == 0) {
+                var title = document.createElement("h4");
+                title.innerHTML = "Auto";
+                title.classList.add("editPageTitle");
+                tableBody.appendChild(title);
+            }
+
             tableBody.appendChild(row);
+            index ++;
         }
         mainTable.appendChild(tableBody)
         editTable.appendChild(mainTable);
@@ -981,7 +995,7 @@ let incArr = []
 let selected = -1;
 function clickEvt(type, loc, rev = null) {
     console.log(type + " " + loc);
-    const clickAudioFiles = ["sfx/braylon.mp3"];
+    const clickAudioFiles = ["sfx/braylon.mp3", "sfx/kyra.mp3"];
     const randomIndex = Math.floor(Math.random() * clickAudioFiles.length);
     let clickAudio = new Audio(clickAudioFiles[randomIndex]);
     clickAudio.play();

@@ -36,6 +36,12 @@ body {
     text-align: center;
 }
 
+.editPageTitle {
+    text-align: center;
+    margin: 0px;
+    margin-top: 10px;
+}
+
 .line {
     border: none;
     border-top: var(--accentColor) 1px solid;
