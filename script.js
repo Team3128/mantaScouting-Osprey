@@ -7,6 +7,7 @@ let isFieldFlipped = false;
 let dataPoints = new Map();
 let timeInt = 1000; // Time Interval, SHOULD BE 1000, 10 if speed!!!!!!!
 let testing = false; // DISABLES INTRO PAGE CHECKS IF TRUE
+let holdingShift = false;
 
 let startAudio = new Audio("sfx/amyMeowing.mp3")
 
@@ -140,10 +141,17 @@ let uniqueKeys = keys.filter((i, index) => {
 
 //updates QR code on qata page every second
 // let qrRefresh = setInterval(() => { if (state == "after") updateQr() }, 1000);
-
+window.addEventListener('keyup', function (keystroke) {
+    if (!keystroke.shiftKey) {
+        holdingShift = false;
+    }
+});
 
 //code for hotkeys, notes
 window.addEventListener('keydown', function (keystroke) {
+    if (keystroke.shiftKey) {
+        holdingShift = true;
+    }
     if (keystroke.key == "Alt") {
         keystroke.preventDefault();
         if (state == "init" || state == "after") {
@@ -455,7 +463,7 @@ function resetAuto() {
             box.style.gridRowEnd = settings.auto[i].rowEnd;
             let wType = settings.auto[i].writeType;
             box.id = "box" + wLoc
-            box.addEventListener("click", ()=>clickEvt(wType, wLoc))
+            box.addEventListener("click", ()=>clickEvt(wType, wLoc, holdingShift))
             document.getElementById("mainPage").appendChild(box);
 
             const boxLabel = document.createElement("div");
@@ -463,7 +471,7 @@ function resetAuto() {
             boxLabel.style.gridColumn = (settings.auto[i].columnEnd-1) + "/" + (settings.auto[i].columnEnd-1);
             boxLabel.style.gridRow = (settings.auto[i].rowEnd-1) + "/" + (settings.auto[i].rowEnd-1);
             boxLabel.innerHTML = settings.auto[i].trigger.toUpperCase()
-            boxLabel.addEventListener("click", ()=>clickEvt(wType, wLoc))
+            boxLabel.addEventListener("click", ()=>clickEvt(wType, wLoc, holdingShift))
             document.getElementById("mainPage").appendChild(boxLabel);
 
             const boxCount = document.createElement("div");
@@ -472,7 +480,7 @@ function resetAuto() {
             boxCount.innerHTML = dataPoints.get(wLoc);
             boxCount.style.gridColumn = settings.auto[i].columnStart + "/" + settings.auto[i].columnStart;
             boxCount.style.gridRow = (settings.auto[i].rowEnd-1) + "/" + (settings.auto[i].rowEnd-1);
-            boxCount.addEventListener("click", ()=>clickEvt(wType, wLoc))
+            boxCount.addEventListener("click", ()=>clickEvt(wType, wLoc, holdingShift))
             document.getElementById("mainPage").appendChild(boxCount);
             
         }
@@ -510,7 +518,7 @@ function generateMainPage(stage) {
             box.style.gridRowEnd = settings.tele[i].rowEnd;
             let wType = settings.tele[i].writeType;
             box.id = "box" + wLoc
-            box.addEventListener("click", () => clickEvt(wType, wLoc))
+            box.addEventListener("click", () => clickEvt(wType, wLoc, holdingShift))
             document.getElementById("mainPage").appendChild(box);
 
             const boxLabel = document.createElement("div");
@@ -518,7 +526,7 @@ function generateMainPage(stage) {
             boxLabel.style.gridColumn = (settings.tele[i].columnEnd - 1) + "/" + (settings.tele[i].columnEnd - 1);
             boxLabel.style.gridRow = (settings.tele[i].rowEnd - 1) + "/" + (settings.tele[i].rowEnd - 1);
             boxLabel.innerHTML = settings.tele[i].trigger.toUpperCase()
-            boxLabel.addEventListener("click", () => clickEvt(wType, wLoc))
+            boxLabel.addEventListener("click", () => clickEvt(wType, wLoc, holdingShift))
             document.getElementById("mainPage").appendChild(boxLabel);
 
             const boxCount = document.createElement("div");
@@ -527,7 +535,7 @@ function generateMainPage(stage) {
             boxCount.innerHTML = dataPoints.get(wLoc);
             boxCount.style.gridColumn = settings.tele[i].columnStart + "/" + settings.tele[i].columnStart;
             boxCount.style.gridRow = (settings.tele[i].rowEnd - 1) + "/" + (settings.tele[i].rowEnd - 1);
-            boxCount.addEventListener("click", () => clickEvt(wType, wLoc))
+            boxCount.addEventListener("click", () => clickEvt(wType, wLoc, holdingShift))
             document.getElementById("mainPage").appendChild(boxCount);
         }
         console.log("tele generated");
