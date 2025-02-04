@@ -163,24 +163,28 @@ window.addEventListener('keydown', function (keystroke) {
         document.getElementById("notesPage").classList.remove("notesPageAnim")
         document.getElementById("notesPage").classList.remove("notesPageAnimR")
 
+        const qataKey = state == "tele" ? "qata" : "auto_qata"
+        console.log(qataKey);
+
         if (!notesToggled) {
             document.getElementById('notesPage').classList.add("notesPageAnim")
             document.getElementById('notes').classList.add("notesAnim")
             document.getElementById('notes').focus()
             notesToggled = true;
 
-            if (dataPoints.qata == null) {
-                document.getElementById("notes").innerHTML = " ";
+            if (dataPoints.get(qataKey) == null) {
+                document.getElementById("notes").value = "";
             } else {
-                dataPoints.qata = document.getElementById("notes").innerHTML;
+                document.getElementById("notes").value = dataPoints.get(qataKey);
             }
         }
         else {
-            document.getElementById('notes').blur()
+            document.getElementById('notes').blur();
 
-            document.getElementById('notesPage').classList.add("notesPageAnimR")
-            document.getElementById('notes').classList.add("notesAnimR")
-            dataPoints.qata = document.getElementById("notes").value
+            document.getElementById('notesPage').classList.add("notesPageAnimR");
+            document.getElementById('notes').classList.add("notesAnimR");
+            dataPoints.set(qataKey, document.getElementById("notes").value);
+            console.log(dataPoints.get(qataKey));
             notesToggled = false;
         }
 
@@ -653,36 +657,51 @@ function generateMainPage(stage) {
                 labelText.innerHTML = settings.after[i].display;
                 container.appendChild(labelText);
 
+                const textbox = document.createElement("textarea");
+                textbox.classList.add("afterTextBox");
+                textbox.setAttribute("id", ("str" + settings.after[i].label));
+                textbox.setAttribute("placeholder", settings.after[i].placeholder);
+                textbox.style.height = "14vh";
+                textbox.style.paddingTop = "7px";
+                textbox.style.resize = "none";
+                const value = dataPoints.get(settings.after[i].label);
+                console.log("other qata from notes: " + value);
+                textbox.value = value != null ? value : ""
+                textbox.addEventListener("input", () => {
+                    dataPoints.set("qata", textbox.value);
+                    updateQr();
+                })
+                container.appendChild(textbox)
 
-                if (settings.after[i].label == "qata") {
-                    const textbox = document.createElement("textarea");
-                    textbox.classList.add("afterTextBox");
-                    textbox.setAttribute("id", ("str" + settings.after[i].label));
-                    textbox.setAttribute("placeholder", settings.after[i].placeholder);
-                    textbox.style.height = "14vh";
-                    textbox.style.paddingTop = "7px";
-                    textbox.style.resize = "none";
-                    console.log("other qata from notes: " + dataPoints.get("qata"));
-                    textbox.innerHTML = dataPoints.get("qata");
-                    textbox.addEventListener("input", () => {
-                        dataPoints.set("qata", textbox.value);
-                        updateQr();
-                    })
-                    container.appendChild(textbox)
-                }
-                else {
-                    const textbox = document.createElement("input");
-                    textbox.type = "text";
-                    textbox.classList.add("afterTextBox");
-                    textbox.setAttribute("id", ("str" + settings.after[i].label));
-                    textbox.setAttribute("placeholder", settings.after[i].placeholder)
-                    textbox.addEventListener("input", () => {
-                        dataPoints.set(settings.after[i].label, textbox.value);
-                        updateQr();
-                    })
-                    container.appendChild(textbox)
-                    dataPoints.set(settings.after[i].label, "");
-                }
+                // if (settings.after[i].label == "qata") {
+                //     const textbox = document.createElement("textarea");
+                //     textbox.classList.add("afterTextBox");
+                //     textbox.setAttribute("id", ("str" + settings.after[i].label));
+                //     textbox.setAttribute("placeholder", settings.after[i].placeholder);
+                //     textbox.style.height = "14vh";
+                //     textbox.style.paddingTop = "7px";
+                //     textbox.style.resize = "none";
+                //     console.log("other qata from notes: " + dataPoints.get("qata"));
+                //     textbox.innerHTML = dataPoints.get("qata");
+                //     textbox.addEventListener("input", () => {
+                //         dataPoints.set("qata", textbox.value);
+                //         updateQr();
+                //     })
+                //     container.appendChild(textbox)
+                // }
+                // else {
+                //     const textbox = document.createElement("input");
+                //     textbox.type = "text";
+                //     textbox.classList.add("afterTextBox");
+                //     textbox.setAttribute("id", ("str" + settings.after[i].label));
+                //     textbox.setAttribute("placeholder", settings.after[i].placeholder)
+                //     textbox.addEventListener("input", () => {
+                //         dataPoints.set(settings.after[i].label, textbox.value);
+                //         updateQr();
+                //     })
+                //     container.appendChild(textbox)
+                //     dataPoints.set(settings.after[i].label, "");
+                // }
             }
 
         }

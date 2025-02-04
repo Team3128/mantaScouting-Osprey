@@ -229,16 +229,16 @@ let settings = {
             "placeholder": "e.g. speed? path? starting location?"
         },
         {
+            "label": "qata",
+            "display": "Tele QATA",
+            "writeType": "str",
+            "placeholder": "e.g. how are they scoring? speed? skill?"
+        },
+        {
             "label": "defense_qata",
             "display": "Defense QATA",
             "writeType": "str",
             "placeholder": "how did they play defense? push power? speed?"
-        },
-        {
-            "label": "qata",
-            "display": "QATA",
-            "writeType": "str",
-            "placeholder": "e.g. how are they scoring? speed? skill?"
         }
     ],
     "start": [
