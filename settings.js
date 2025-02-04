@@ -148,7 +148,7 @@ let settings = {
         {
             "label": "tele_algae_net",
             "display" : "🦠 Algae Net",
-            "trigger": "s",
+            "trigger": "d",
             "columnStart": 3,
             "columnEnd": 4,
             "rowStart": 2,
@@ -158,7 +158,7 @@ let settings = {
         {
             "label": "tele_algae_net_miss",
             "display" : "🦠 Algae Net Miss",
-            "trigger": "d",
+            "trigger": "f",
             "columnStart": 4,
             "columnEnd": 5,
             "rowStart": 2,
@@ -168,7 +168,7 @@ let settings = {
         {
             "label": "tele_algae_processor",
             "display" : "🦠 Algae Proc",
-            "trigger": "f",
+            "trigger": "s",
             "columnStart": 3,
             "columnEnd": 5,
             "rowStart": 3,
@@ -223,10 +223,10 @@ let settings = {
     "after": [
 
         {
-            "label": "climbing_qata",
-            "display": "Climbing QATA",
+            "label": "auto_qata",
+            "display": "Auto QATA",
             "writeType": "str",
-            "placeholder": "e.g. harmonized? speed? good trap+climb?"
+            "placeholder": "e.g. speed? path? starting location?"
         },
         {
             "label": "defense_qata",
