@@ -364,6 +364,7 @@ function getDataArray() {
 
             dataArray.push([point.label, value]);
         }
+    dataArray.push(["version", 1.3])
     return dataArray;
 }
 

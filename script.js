@@ -1026,7 +1026,7 @@ function updateQr() {
 
 function sortData() {
     const sortedData = new Map();
-    const metaData = ["scout_id", "team_number", "match_number", "team_position", "scout_team"]
+    const metaData = ["scout_id", "team_number", "match_number", "team_position", "scout_team", "alliance_color"]
     for (const key of metaData) {
         sortedData.set(key, dataPoints.get(key));
     }
