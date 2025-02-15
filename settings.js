@@ -343,7 +343,7 @@ function getDataSettings() {
 
 function getDataArray() {
     const dataArray = [];
-    for (const data of [settings.auto, settings.tele])
+    for (const data of [settings.auto, settings.tele, settings.after])
         for (let i = 0; i < data.length; i++) {
             const point = data[i];
             let value = 0;

@@ -693,7 +693,7 @@ function generateMainPage(stage) {
                 console.log("other qata from notes: " + value);
                 textbox.value = value != null ? value : ""
                 textbox.addEventListener("input", () => {
-                    dataPoints.set("qata", textbox.value);
+                    dataPoints.set(settings.after[i].label, textbox.value);
                     updateQr();
                 })
                 container.appendChild(textbox)
