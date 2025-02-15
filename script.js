@@ -4,6 +4,7 @@
 let state = "init", timer = 135, timerIsTicking = false, delay = true, rowContent = new Map(), notesToggled = false, allianceColor = "n";
 
 let isFieldFlipped = false;
+let useTimer = false;
 let dataPoints = new Map();
 let timeInt = 1000; // Time Interval, SHOULD BE 1000, 10 if speed!!!!!!!
 let testing = false; // DISABLES INTRO PAGE CHECKS IF TRUE
@@ -25,6 +26,8 @@ document.getElementById("fieldCanvas").addEventListener("click", () => {
 
 document.getElementById("flipBtn").addEventListener("click", flipField);
 
+document.getElementById("timerBtn").addEventListener("click", enableTimerSetting);
+
 function flipField() {
     if (isFieldFlipped) {
         document.getElementById("flipBtn").classList.add("red");
@@ -35,6 +38,18 @@ function flipField() {
         document.getElementById("flipBtn").classList.remove("red");
     }
     isFieldFlipped = !isFieldFlipped;
+}
+
+function enableTimerSetting() {
+    if (useTimer) {
+        document.getElementById("timerBtn").classList.add("red");
+        document.getElementById("timerBtn").classList.remove("green");
+    }
+    else {
+        document.getElementById("timerBtn").classList.add("green");
+        document.getElementById("timerBtn").classList.remove("red");
+    }
+    useTimer = !useTimer;
 }
 
 //canvas functions to get mouse position, translate to canvas position
@@ -305,7 +320,7 @@ function createAuto(page) {
 function nextPoint(point, page) {
     if (autoHistory.length == 1) {
         timerStart()
-        startAudio.play();
+        if (isFieldFlipped) startAudio.play();
         resetAutoSettings();
     }
     autoPath.push(point);
@@ -509,6 +524,14 @@ function generateMainPage(stage) {
         resetAuto();
     }
     if (stage == "tele") {
+        document.getElementById('notes').blur()
+        dataPoints.set("auto_qata", document.getElementById("notes").value);
+        document.getElementById("notes").value = "";
+        document.getElementById("notes").classList.remove("notesAnim")
+        document.getElementById("notes").classList.remove("notesAnimR")
+        document.getElementById("notesPage").classList.remove("notesPageAnim")
+        document.getElementById("notesPage").classList.remove("notesPageAnimR")
+
         document.getElementById("autoPage").style.display = "none";
         for (i = 0; i < settings.tele.length; i++) {
             const box = document.createElement("div")
@@ -551,6 +574,7 @@ function generateMainPage(stage) {
         //close notes box if it is open
         document.getElementById('notes').blur()
         dataPoints.set("qata", document.getElementById("notes").value);
+        document.getElementById("notes").value = "";
         document.getElementById("notes").classList.remove("notesAnim")
         document.getElementById("notes").classList.remove("notesAnimR")
         document.getElementById("notesPage").classList.remove("notesPageAnim")
@@ -921,7 +945,7 @@ function timerStart() {
     const firstStart = !timerIsTicking
     timerIsTicking = true;
     if (firstStart) {
-        timer = 135;
+        timer = useTimer ? 150 : 135;
         updateTimer();
     }
 }
@@ -938,25 +962,28 @@ function updateTimer() {
         timer--;
     }
     if (settings.imported.transitionMode == "auto") {
-        if (timer == 135 && delay) { //janky implementation of 2 second auto to teleop delay
-            // timer = 136; //136??? check delay
-            // delay = !delay
+        if (useTimer) {
+            if (timer == 135 && delay) { //janky implementation of 2 second auto to teleop delay
+                timer = 136; //136??? check delay
+                delay = !delay
+            }
+            if (timer == 135 && !delay) {
+                state = "tele"
+                transition(2)
+            }
+            if (timer == 30) {
+                //state = "end"
+                //transition(3)
+                //this was removed because the endgame page was the same as the teleop page
+            }
+            if (timer == 0) {
+                console.log("Game over");
+                timer -= 1;
+                state = "after";
+                transition(4)
+            }
         }
-        if (timer == 135 && !delay) {
-            // state = "tele"
-            // transition(2)
-        }
-        if (timer == 30) {
-            //state = "end"
-            //transition(3)
-            //this was removed because the endgame page was the same as the teleop page
-        }
-        if (timer == 0) {
-            // console.log("Game over");
-            // timer -= 1;
-            // state = "after";
-            // transition(4)
-        }
+
         if (timer > 0) {
             timer--;
         }
@@ -1025,7 +1052,7 @@ function clickEvt(type, loc, rev = null) {
     const clickAudioFiles = ["sfx/braylon.mp3", "sfx/kyra.mp3"];
     const randomIndex = Math.floor(Math.random() * clickAudioFiles.length);
     let clickAudio = new Audio(clickAudioFiles[randomIndex]);
-    clickAudio.play();
+    if (isFieldFlipped) clickAudio.play();
     //during game
     if (type == "int") {
         document.getElementById("box" + loc).classList.remove("clickAnim");
@@ -1252,7 +1279,8 @@ function  transition(i) {
     if (i == 1 && state == "standby") {
         if (isFieldFlipped) field.classList.add("rotated");
         else field.classList.remove("rotated");
-        startAudio.play();
+        if (isFieldFlipped) startAudio.play();
+        if (useTimer) timerStart();
         generateMainPage("auto");
     }
     if (i == 2) {
@@ -1281,7 +1309,7 @@ function resetGame() {
     isSorted = false;
     document.getElementById("autoPage").style.display = "none";
     state = "init";
-    timer = 135;
+    timer = useTimer ? 150 : 135;
     delay = true;
     rowContent = new Map();
     incArr = [];
@@ -1363,7 +1391,7 @@ function resetGame() {
 
 function nextStage() {
     const nextStageAudio = new Audio("sfx/saevin.mp3")
-    nextStageAudio.play();
+    if (isFieldFlipped) nextStageAudio.play();
     if (state == "auto") {
         transition(2);
     }
