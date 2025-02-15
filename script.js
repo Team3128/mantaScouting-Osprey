@@ -165,10 +165,10 @@ window.addEventListener('keyup', function (keystroke) {
 
 //code for hotkeys, notes
 window.addEventListener('keydown', function (keystroke) {
-    if (keystroke.key == "Enter") {
+    if (!notesToggled && keystroke.key == "Enter") {
         nextStage();
     }
-    if (keystroke.key == "Tab") {
+    if (!notesToggled && keystroke.key == "Shift") {
         previousStage();
     }
     if (keystroke.shiftKey) {
@@ -1290,9 +1290,9 @@ function  transition(i) {
         generateMainPage("auto");
     }
     if (i == 2) {
+        notesToggled = false;
         let removeElem = (settings.auto.length) * 3
         for (let i = 0; i < removeElem; i++) {
-
             mainPageElem = document.getElementById("mainPage");
             mainPageElem.removeChild(mainPageElem.lastElementChild)
         }
@@ -1301,6 +1301,7 @@ function  transition(i) {
         generateMainPage("tele");
     }
     if (i == 4) {
+        notesToggled = false;
         let removeElem = (settings.tele.length) * 3
         for (let i = 0; i < removeElem; i++) {
 
