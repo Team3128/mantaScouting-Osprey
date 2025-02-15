@@ -165,6 +165,12 @@ window.addEventListener('keyup', function (keystroke) {
 
 //code for hotkeys, notes
 window.addEventListener('keydown', function (keystroke) {
+    if (keystroke.key == "Enter") {
+        nextStage();
+    }
+    if (keystroke.key == "Tab") {
+        previousStage();
+    }
     if (keystroke.shiftKey) {
         holdingShift = true;
     }
