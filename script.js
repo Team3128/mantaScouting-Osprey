@@ -168,7 +168,7 @@ window.addEventListener('keydown', function (keystroke) {
     if (!notesToggled && keystroke.key == "Enter") {
         nextStage();
     }
-    if (!notesToggled && keystroke.key == "Shift") {
+    if (!notesToggled && keystroke.key == "Tab") {
         previousStage();
     }
     if (keystroke.shiftKey) {
@@ -529,11 +529,14 @@ function generateMainPage(stage) {
     document.getElementById("display-team").innerHTML = "Team: " + dataPoints.get("team_number");
     if (stage == "auto") {
         resetAuto();
+        document.getElementById('notes').value = dataPoints.get("auto_qata");
     }
     if (stage == "tele") {
         document.getElementById('notes').blur()
-        dataPoints.set("auto_qata", document.getElementById("notes").value);
-        document.getElementById("notes").value = "";
+        const notesValue = document.getElementById("notes").value;
+        if (notesValue && "" || notesValue != null) dataPoints.set("auto_qata", notesValue);
+
+        document.getElementById('notes').value = dataPoints.get("qata");
         document.getElementById("notes").classList.remove("notesAnim")
         document.getElementById("notes").classList.remove("notesAnimR")
         document.getElementById("notesPage").classList.remove("notesPageAnim")
@@ -580,7 +583,8 @@ function generateMainPage(stage) {
 
         //close notes box if it is open
         document.getElementById('notes').blur()
-        dataPoints.set("qata", document.getElementById("notes").value);
+        const notesValue = document.getElementById("notes").value;
+        if (notesValue != null && notesValue != "") dataPoints.set("qata", notesValue);
         document.getElementById("notes").value = "";
         document.getElementById("notes").classList.remove("notesAnim")
         document.getElementById("notes").classList.remove("notesAnimR")
