@@ -484,3 +484,10 @@ const themes = {
     "styleAlpine": ["#d8dee9", "#617b94", "#242933", "#1b1f27", "#bf616a", "invert(92%) sepia(7%) saturate(277%) hue-rotate(180deg) brightness(97%) contrast(92%) opacity(50%)"],
     "styleShadow": ["#383e42", "#5e676e", "#010203", "#121212", "#e25303", "invert(22%) sepia(16%) saturate(303%) hue-rotate(161deg) brightness(95%) contrast(91%) opacity(50%)"]
 }
+
+
+const sounds = [
+    "sfx/kyra.mp3",
+    "sfx/isabel.mp3",
+    "sfx/james.mp3"
+]

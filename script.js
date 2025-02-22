@@ -1060,9 +1060,8 @@ let incArr = []
 let selected = -1;
 function clickEvt(type, loc, rev = null) {
     console.log(type + " " + loc);
-    const clickAudioFiles = ["sfx/braylon.mp3", "sfx/kyra.mp3"];
-    const randomIndex = Math.floor(Math.random() * clickAudioFiles.length);
-    let clickAudio = new Audio(clickAudioFiles[randomIndex]);
+    const randomIndex = Math.floor(Math.random() * sounds.length);
+    let clickAudio = new Audio(sounds[randomIndex]);
     if (isFieldFlipped) clickAudio.play();
     //during game
     if (type == "int") {
