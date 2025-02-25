@@ -464,7 +464,8 @@ const phrTeamList = [
     9534,
     9599,
     9772,
-    10120
+    10120,
+    10147
 ]
 
 const teamList = canpacList.concat(phrTeamList);
