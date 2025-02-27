@@ -978,7 +978,7 @@ function updateTimer() {
                 timer = 136; //136??? check delay
                 delay = !delay
             }
-            if (timer == 135 && !delay) {
+            if (timer == 135 && !delay && state != "tele") {
                 state = "tele"
                 transition(2)
             }
@@ -1225,6 +1225,7 @@ setInterval(() => {
 }, 1000)
 
 function  transition(i) {
+    incArr = []
     if (i == 0 && state == "init") {
         dataPoints = new Map(getDataSettings());
         const scoutID = document.getElementById("initIdForm").value;
