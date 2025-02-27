@@ -967,7 +967,7 @@ function timerStop() {
 }
 
 function updateTimer() {
-    if (!timerIsTicking) return;
+    if (!timerIsTicking || (state != "tele" && state != "auto")) return;
     document.getElementById("display-timer").innerHTML = timer;
     if (settings.imported.transitionMode == "manual") {
         timer--;
