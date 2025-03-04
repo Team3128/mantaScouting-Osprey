@@ -5,7 +5,7 @@ let state = "init", timer = 135, timerIsTicking = false, delay = true, rowConten
 
 let isFieldFlipped = false;
 let useTimer = false;
-const teamListCheck = true;
+let teamListCheck = true;
 let dataPoints = new Map();
 let timeInt = 1000; // Time Interval, SHOULD BE 1000, 10 if speed!!!!!!!
 let testing = false; // DISABLES INTRO PAGE CHECKS IF TRUE
@@ -29,6 +29,8 @@ document.getElementById("flipBtn").addEventListener("click", flipField);
 
 document.getElementById("timerBtn").addEventListener("click", enableTimerSetting);
 
+document.getElementById("teamListBtn").addEventListener("click", toggleTeamList);
+
 function flipField() {
     if (isFieldFlipped) {
         document.getElementById("flipBtn").classList.add("red");
@@ -51,6 +53,18 @@ function enableTimerSetting() {
         document.getElementById("timerBtn").classList.remove("red");
     }
     useTimer = !useTimer;
+}
+
+function toggleTeamList() {
+    if (teamListCheck) {
+        document.getElementById("teamListBtn").classList.add("red");
+        document.getElementById("teamListBtn").classList.remove("green");
+    }
+    else {
+        document.getElementById("teamListBtn").classList.add("green");
+        document.getElementById("teamListBtn").classList.remove("red");
+    }
+    teamListCheck = !teamListCheck;
 }
 
 //canvas functions to get mouse position, translate to canvas position
@@ -168,7 +182,7 @@ window.addEventListener('keydown', function (keystroke) {
     if (!notesToggled && keystroke.key == "Enter") {
         nextStage();
     }
-    if (!notesToggled && keystroke.key == "Tab") {
+    if (!notesToggled && keystroke.key == "Control") {
         previousStage();
     }
     if (keystroke.shiftKey) {
@@ -488,6 +502,15 @@ function resetAuto() {
             box.style.gridRowStart = settings.auto[i].rowStart;
             box.style.gridRowEnd = settings.auto[i].rowEnd;
             let wType = settings.auto[i].writeType;
+
+            if (wType == "bool") {
+                if (dataPoints.get(wLoc)) {
+                    box.style.backgroundColor = "var(--accentColor)"
+                } else {
+                    box.style.backgroundColor = "var(--altBgColor)"
+                }
+            }
+
             box.id = "box" + wLoc
             box.addEventListener("click", ()=>clickEvt(wType, wLoc, holdingShift))
             document.getElementById("mainPage").appendChild(box);
@@ -553,7 +576,16 @@ function generateMainPage(stage) {
             box.style.gridColumnEnd = settings.tele[i].columnEnd;
             box.style.gridRowStart = settings.tele[i].rowStart;
             box.style.gridRowEnd = settings.tele[i].rowEnd;
+
             let wType = settings.tele[i].writeType;
+            if (wType == "bool") {
+                if (dataPoints.get(wLoc)) {
+                    box.style.backgroundColor = "var(--accentColor)"
+                } else {
+                    box.style.backgroundColor = "var(--altBgColor)"
+                }
+            }
+
             box.id = "box" + wLoc
             box.addEventListener("click", () => clickEvt(wType, wLoc, holdingShift))
             document.getElementById("mainPage").appendChild(box);
@@ -1068,7 +1100,7 @@ function clickEvt(type, loc, rev = null) {
         document.getElementById("box" + loc).classList.remove("clickAnim");
         void document.getElementById("box" + loc).offsetWidth;
         if (rev) {
-            dataPoints.set(loc, dataPoints.get(loc) - 1);
+            dataPoints.set(loc, Math.max(dataPoints.get(loc) - 1, 0));
             document.getElementById("box" + loc).classList.add("clickAnim");
         }
         if (!rev) {
@@ -1180,14 +1212,20 @@ function clickEvt(type, loc, rev = null) {
                 dataPoints.set(selected, dataPoints.get(selected) + 1);
             }
             if (rev == "minus") {
-                dataPoints.set(selected, dataPoints.get(selected) - 1);
+                dataPoints.set(selected, Math.max(dataPoints.get(selected) - 1, 0));
             }
         }
         if (rowContent.get(selected).writeType == "cycG") {
             let curVal = dataPoints.get(selected);
             let cycOptions = rowContent.get(selected).cycGOptions;
-            const index = (cycOptions.indexOf(curVal) + 1) % cycOptions.length;
-            dataPoints.set(selected, cycOptions[index]);
+            let index = 0;
+            if (rev == "plus") {
+                index = (cycOptions.indexOf(curVal) + 1) % cycOptions.length;
+            }
+            if (rev == "minus") {
+                index = (cycOptions.indexOf(curVal) - 1) % cycOptions.length;
+            }
+            dataPoints.set(selected, cycOptions.at(index));
             console.log(dataPoints.get(selected));
         }
 
