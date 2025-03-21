@@ -394,7 +394,7 @@ function getDataArray() {
 
             dataArray.push([point.label, value]);
         }
-    dataArray.push(["version", 1.4])
+    dataArray.push(["version", 1.5])
     return dataArray;
 }
 
@@ -453,7 +453,7 @@ const teamList = [
 ]
 
 const themes = {
-    "mainStyleSheet": ["#000", "#999999", "#fff", "#f3f3f3", "#E54C38", "invert(0%) sepia(100%) saturate(7430%) hue-rotate(46deg) brightness(81%) contrast(114% opacity(50%))"],
+    "mainStyleSheet": ["#d8dee9", "#617b94", "#242933", "#1b1f27", "#bf616a", "invert(92%) sepia(7%) saturate(277%) hue-rotate(180deg) brightness(97%) contrast(92%) opacity(50%)"],
     // main, second, bg, highlight, 
     "styleCarbon": ["#eee", "#444", "#111", "#191919", "#da3333", "invert(100%) sepia(0%) saturate(6935%) hue-rotate(270deg) brightness(111%) contrast(87%) opacity(50%)"],
     "styleMilkshake": ["#000", "#999999", "#fff", "#f3f3f3", "#ffd1dc", "invert(0%) sepia(100%) saturate(7430%) hue-rotate(46deg) brightness(81%) contrast(114% opacity(50%))"],
@@ -467,6 +467,7 @@ const themes = {
     "styleShadow": ["#383e42", "#5e676e", "#010203", "#121212", "#e25303", "invert(22%) sepia(16%) saturate(303%) hue-rotate(161deg) brightness(95%) contrast(91%) opacity(50%)"]
 }
 
+//["#000", "#999999", "#fff", "#f3f3f3", "#E54C38", "invert(0%) sepia(100%) saturate(7430%) hue-rotate(46deg) brightness(81%) contrast(114% opacity(50%))"]
 
 const sounds = [
     "sfx/kyra.mp3",

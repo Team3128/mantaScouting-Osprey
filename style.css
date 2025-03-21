@@ -458,7 +458,7 @@ svg:hover {
     /* border-radius: 100%;
     border: var(--mainColor) 2px solid; */
 
-    width: 70vh;
+    /* width: 70vh; */
     height: 50vh;
 
     margin: auto;
@@ -471,6 +471,9 @@ svg:hover {
     font-family: "Roboto Mono", monospace;
 }
 
+#infoBar {
+    margin: auto;
+}
 
 
 .hl-span {
@@ -482,6 +485,7 @@ svg:hover {
 #standbyLabel {
     font-size: 14px;
     color: var(--highlightColor);
+    margin: auto;
 }
 
 #fieldCanvas {

@@ -16,14 +16,14 @@ let startAudio = new Audio("sfx/amyMeowing.mp3")
 //import field image and draw on canvas for starting position
 var img = new Image();
 img.src = 'img/field.png';
-var canvas = document.getElementById('fieldCanvas');
-var ctx = canvas.getContext('2d');
-ctx.clearRect(0, 0, canvas.width, canvas.height);
-ctx.drawImage(img, 0, 0);
+// var canvas = document.getElementById('fieldCanvas');
+// var ctx = canvas.getContext('2d');
+// ctx.clearRect(0, 0, canvas.width, canvas.height);
+// ctx.drawImage(img, 0, 0);
 
-document.getElementById("fieldCanvas").addEventListener("click", () => {
-    canvasClicked()
-})
+// document.getElementById("fieldCanvas").addEventListener("click", () => {
+//     canvasClicked()
+// })
 
 document.getElementById("flipBtn").addEventListener("click", flipField);
 
@@ -1506,6 +1506,9 @@ function changeColor(id) {
 
     //main, second, bg, highlight
 }
+
+changeColor("mainStyleSheet");
+
 function abortMatch() {
     if (confirm("Are you sure you want to reset the match?")) {
         // The user clicked "OK", so proceed with the action
