@@ -472,7 +472,8 @@ const teamList = [
     8573,
     3459,
     34,
-    6429
+    6429,
+    1625
 ]
 
 const themes = {
