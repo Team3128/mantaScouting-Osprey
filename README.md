@@ -1,14 +1,10 @@
-# Osprey-RapidReact
-Front end scouting app for Rapid React, with customizability as the core concept
+# Osprey
+Front end scouting app for Team 3128, with customizability as the core concept
 
-Commands:
- - clearStorage(): clears local storage. Should be used before the start of a new competition
- - resetGame(): use this if you accidentally start the game too early
- - getStorage(): returns all local storage data in the proper format for uploading
-
- 
 Description:
-This is an electronic scouting system developed by FRC Team 3128, The Aluminum Narwhals, for use in the 2023 FRC Season "Charged Up". Download the files as a zip, open "index.html", and the webapp should open in your device's browser.
+This is an electronic scouting system developed by FRC Team 3128, The Aluminum Narwhals, for use in the 2025 FRC Season "Reefscape". Download the files as a zip, unzip, open "index.html", and the webapp should open in your device's browser.
+
+Find the latest [releases](https://github.com/Team3128/mantaScouting-Osprey/releases) here.
 
 References:
 https://github.com/kazuhikoarase/qrcode-generator/blob/master/js/README.md
